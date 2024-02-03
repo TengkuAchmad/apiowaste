@@ -22,7 +22,7 @@ def auth():
             return accountmanagement.auth_account(data)
 
 # REGISTER ACCOUNT ENDPOINT
-@app.route('/account-management/reg/<role>', methods=['POST'])
+@app.route('/account-management/reg/<string:role>', methods=['POST'])
 def reg(role):
     if request.method == "POST":
         if 'multipart/form-data' not in request.content_type:

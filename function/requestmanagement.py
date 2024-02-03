@@ -5,7 +5,7 @@ def getListRequest():
     try:
         conn = open_connection()
         with conn.cursor() as cursor:
-            cursor.execute("CALL getRequestList()")
+            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.Pickup_Date_PR, User_Data.Name_UD FROM Pickup_Request INNER JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA INNER JOIN User_Account ON Pickup_Address.UUID_UA = User_Account.UUID_UA INNER JOIN User_Data ON User_Account.UUID_UA = User_Data.UUID_UA WHERE Pickup_Request.ID_RS = 2")
             result = cursor.fetchall()
             result = list(result)
             return jsonify(result), 200
@@ -17,10 +17,9 @@ def getRequestDetails(id):
     try:
         conn = open_connection()
         with conn.cursor() as cursor:
-            cursor.execute("CALL getRequestDetails(%s)", id,)
+            cursor.execute("SELECT Request_Status.ID_RS, Pickup_Request.UpdatedAt_PR, Pickup_Request.GPS_PR, Pickup_Address.Address_PA, GROUP_CONCAT( Waste_Image.UUID_WI SEPARATOR ' || ' ) AS Image_WI_LIST, GROUP_CONCAT( Waste_Category.ID_WC SEPARATOR ' || ') AS ID_WC_LIST, Pickup_Request.Pickup_Date_PR, User_Account.Email_UA, User_Account.UUID_UA, User_Data.Name_UD FROM Pickup_Request INNER JOIN Request_Status ON Pickup_Request.ID_RS = Request_Status.ID_RS INNER JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA INNER JOIN User_Account ON Pickup_Request.UUID_UA = User_Account.UUID_UA INNER JOIN User_Data ON User_Account.UUID_UA = User_Data.UUID_UA INNER JOIN Waste_Image ON Pickup_Request.UUID_PR = Waste_Image.UUID_PR INNER JOIN Pickup_Waste ON Pickup_Request.UUID_PR = Pickup_Waste.UUID_PR INNER JOIN Waste_Category ON Waste_Category.ID_WC = Pickup_Waste.ID_WC WHERE Pickup_Request.UUID_PR = %s", id,)
             result = cursor.fetchone()
             return jsonify({"data": result}), 200
-    
     except Exception as e:
         return jsonify({"Error :":str(e)}), 400
     

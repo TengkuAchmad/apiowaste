@@ -79,7 +79,13 @@ def setRequest(data, files):
             conn.commit()
             cursor.close()
             conn.close()
-            return jsonify({"status" : "Create request success!"}), 200
+
+            response = {
+                "status" : "Create request success!",
+                "UUID_PR" : UUID_PR_Input
+            }
+
+            return jsonify(response), 200
 
     except Exception as e:
         return jsonify({"Error :" : str(e)}), 400

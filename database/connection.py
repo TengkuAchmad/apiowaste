@@ -2,19 +2,20 @@
 from utility.utils import *
 
 # CONNECTION CONFIGURATION
-DB_USERNAME     = os.environ.get('DB_USERNAME_CONFIG')
-DB_PASSWORD     = os.environ.get('DB_PASSWORD_CONFIG')
-DB_DATABASE     = os.environ.get('DB_DATABASE_NAME_CONFIG')
-DB_CONNECTION   = os.environ.get('DB_CONNECTION_NAME_CONFIG')
+DB_USERNAME_CONFIG          = "technoelectrainc"
+DB_PASSWORD_CONFIG          = "owastebandung"
+DB_DATABASE_NAME_CONFIG     = "db_owaste"
+DB_CONNECTION_NAME_CONFIG   = "technoelectrainc.mysql.pythonanywhere-services.com"
+JWT_SECRET_KEY_CONFIG       = "menujuindonesiabersih"
 
 def open_connection():
     try:
         conn = pymysql.connect(
-            host=DB_CONNECTION,
+            host=DB_CONNECTION_NAME_CONFIG,
             port=3306,
-            user=DB_USERNAME,
-            password=DB_PASSWORD,
-            db=DB_DATABASE,
+            user=DB_USERNAME_CONFIG,
+            password=DB_PASSWORD_CONFIG,
+            db=DB_DATABASE_NAME_CONFIG,
             cursorclass=pymysql.cursors.DictCursor
         )
         return conn

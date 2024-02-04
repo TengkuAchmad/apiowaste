@@ -65,6 +65,7 @@ def getdetails(id):
     if request.method == "GET":
         return requestmanagement.getRequestDetails(id)
     
+    
 @app.route('/request-management/cancel/<string:id>', methods=['GET'])
 @jwt_required()
 def cancelrequest(id):
@@ -89,6 +90,12 @@ def donerequest(id):
 def getWasteImage(id):
     if request.method == "GET":
         return filemanagement.getWasteImage(id)
+    
+@app.route('/request-management/get-status', methods=['GET'])
+@jwt_required()
+def getStatus():
+    if request.method == "GET":
+        return wastemanagement.getRequestCategory()
     
 if __name__ == '__main__':
     app.run(debug=True)

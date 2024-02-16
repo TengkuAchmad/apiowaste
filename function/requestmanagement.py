@@ -23,7 +23,7 @@ def getRequestDetails(id):
     except Exception as e:
         return jsonify({"Error :":str(e)}), 400
     
-def setRequest(data, files):
+def setRequest(data):
     try:
         conn = open_connection()
         
@@ -38,11 +38,10 @@ def setRequest(data, files):
             GPS_PR_Input                = data['GPS_PR_Input']
             Pickup_Date_PR_Input        = data['Pickup_Date_PR_Input']
             # ID_RS                       = "1"
-            ID_RS                       = "2" # UNTUK DEMO
-
+            ID_RS                       = "2" 
             ID_WC_Input               = data['ID_WC_Input']
 
-            Image_WI_Input_Array      = files
+            Image_WI_Input_Array      = data['Image_WI_Input'].split(',')
 
             # SET DATA
             UUID_PA_Input           = uuid.uuid4()
@@ -67,15 +66,9 @@ def setRequest(data, files):
 
             # SAVING PICKUP WASTE IMAGE DATA
             # MULTI ANSWER HANDLING
-                
-            for key in Image_WI_Input_Array:
-                image = Image_WI_Input_Array[key]
-
-                # CONVERT TO BLOB TYPE
-                image_binary = base64.b64encode(image.read()).decode('utf-8')
+            for data in Image_WI_Input_Array:
                 UUID_WI_Input = uuid.uuid4()
-                cursor.execute("INSERT INTO Waste_Image (UUID_WI, UUID_PR, Image_WI, CreatedAt_WI, UpdatedAt_WI) VALUES (%s, %s, %s, %s, %s)", (UUID_WI_Input, UUID_PR_Input, image_binary, timenow, timenow))
-
+                cursor.execute("INSERT INTO Waste_Image (UUID_WI, UUID_PR, Image_WI, CreatedAt_WI, UpdatedAt_WI) VALUES (%s, %s, %s, %s, %s)", (UUID_WI_Input, UUID_PR_Input, data, timenow, timenow))
             conn.commit()
             cursor.close()
             conn.close()

@@ -63,8 +63,7 @@ def createrequest():
             return jsonify({'status': 'Missing form-data in request' }), 400
         else:
             data = request.form.to_dict()
-            files = request.files
-            return requestmanagement.setRequest(data, files)
+            return requestmanagement.setRequest(data)
 
 @app.route('/request-management/get/<string:role>', methods=['GET'])
 @jwt_required()

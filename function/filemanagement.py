@@ -1,6 +1,6 @@
 # UTILITY IMPORT
 from utility.utils import *
-
+    
 def getWasteImage(id):
     try:
         conn = open_connection()

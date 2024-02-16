@@ -17,7 +17,7 @@ from pymysql import *
 
 # FUNCTION IMPORT
 from database.connection import open_connection
-from function import accountmanagement, passwordmanagement, requestmanagement, filemanagement, wastemanagement
+from function import accountmanagement, passwordmanagement, requestmanagement, filemanagement, transactionmanagement, wastemanagement
 
 from dotenv import load_dotenv
 load_dotenv()

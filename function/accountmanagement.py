@@ -22,7 +22,13 @@ def auth_account(data):
                 if check_password_hash(Password_UA, Password_UA_Input):
                     access_token = create_access_token(identity=UUID_UA)
                     refresh_token = create_refresh_token(identity=UUID_UA)
-                    return jsonify({"access_token":access_token, "refresh_token":refresh_token, "UUID_UA":UUID_UA, "Role":RoleAccess_UA}), 200
+
+                    cursor.execute("SELECT * FROM User_Data WHERE UUID_UA = %s", (UUID_UA,))
+                    result = cursor.fetchone()
+
+                    if result:
+                        name_user = result['Name_UD']
+                        return jsonify({"access_token":access_token, "refresh_token":refresh_token, "UUID_UA":UUID_UA, "Role":RoleAccess_UA, "Name": name_user}), 200
         
                 else:
                     return jsonify({"status" : "Password invalid!"}), 400
@@ -43,9 +49,11 @@ def reg_account(data, role):
             Birthplace_UD_Input = data['Birthplace_UD_Input']
             Birthdate_UD_Input  = data['Birthdate_UD_Input']
             Address_UD_Input    = data['Address_UD_Input']
+
             # SET DATA
             UUID_UA             = uuid.uuid4()
             UUID_UD             = uuid.uuid4()
+            Balance_UD          = 0
             timenow             = datetime.now()
 
             if role == "user":
@@ -64,7 +72,7 @@ def reg_account(data, role):
             elif not result:
                 cursor.execute("INSERT INTO User_Account (UUID_UA, Email_UA, Password_UA, RoleAccess_UA, CreatedAt_UA, UpdatedAt_UA) VALUES (%s, %s, %s, %s, %s, %s)", (UUID_UA, Email_UA_Input, Password_UA_Input, RoleAccess_UA_Input, timenow, timenow))
 
-                cursor.execute("INSERT INTO User_Data (UUID_UD, UUID_UA, Name_UD, Birthplace_UD, Birthdate_UD, Address_UD, CreatedAt_UD, UpdatedAt_UD) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (UUID_UD, UUID_UA, Name_UD_Input, Birthplace_UD_Input, Birthdate_UD_Input, Address_UD_Input, timenow, timenow))
+                cursor.execute("INSERT INTO User_Data (UUID_UD, UUID_UA, Name_UD, Birthplace_UD, Birthdate_UD, Address_UD, Balance_UD, CreatedAt_UD, UpdatedAt_UD) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)", (UUID_UD, UUID_UA, Name_UD_Input, Birthplace_UD_Input, Birthdate_UD_Input, Address_UD_Input, Balance_UD, timenow, timenow))
 
             conn.commit()
             cursor.close()

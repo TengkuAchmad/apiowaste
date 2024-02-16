@@ -5,7 +5,7 @@ def getListRequest():
     try:
         conn = open_connection()
         with conn.cursor() as cursor:
-            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.Pickup_Date_PR, User_Data.Name_UD FROM Pickup_Request INNER JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA INNER JOIN User_Account ON Pickup_Address.UUID_UA = User_Account.UUID_UA INNER JOIN User_Data ON User_Account.UUID_UA = User_Data.UUID_UA WHERE Pickup_Request.ID_RS = 2")
+            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.UUID_PR, Pickup_Request.Pickup_Date_PR, User_Data.Name_UD FROM Pickup_Request INNER JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA INNER JOIN User_Account ON Pickup_Address.UUID_UA = User_Account.UUID_UA INNER JOIN User_Data ON User_Account.UUID_UA = User_Data.UUID_UA WHERE Pickup_Request.ID_RS = 2")
             result = cursor.fetchall()
             result = list(result)
             return jsonify(result), 200
@@ -48,7 +48,7 @@ def setRequest(data, files):
             UUID_PA_Input           = uuid.uuid4()
             UUID_PR_Input           = uuid.uuid4()
 
-            # UPDATING PICKUO ADDRESS FAVORITE
+            # UPDATING PICKUP ADDRESS FAVORITE
             if AddressFavorite_PA_Input == "1":
                 cursor.execute("UPDATE Pickup_Address SET AddressFavorite_PA = 0 WHERE UUID_UA = %s", UUID_UA_Input,)
 
@@ -134,3 +134,18 @@ def doneRequest(id):
 
     except Exception as e:
         return jsonify({"Error :" : str(e)})
+    
+
+def getUserRequest(id):
+    try:
+        conn = open_connection()
+        with conn.cursor() as cursor:
+            UUID_UA = id
+            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.Pickup_Date_PR, Request_Status.Status_RS FROM Pickup_Request JOIN Pickup_Addrress ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA JOIN Request_Status ON Pickup_Request.ID_RS = Request_Status.ID_RS WHERE Pickup_Request.UUID_UA = %s", (UUID_UA,))
+            result = cursor.fetchall()
+
+            if result:
+                result = list(result)
+                return jsonify(result), 200
+    except Exception as e:
+        return jsonify({"Error :" : str(e)}), 400

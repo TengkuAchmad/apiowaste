@@ -26,7 +26,7 @@ def auth():
 def reg(role):
     if request.method == "POST":
         if 'multipart/form-data' not in request.content_type:
-            return jsonify({'status' : 'Missing form-datta in request'}), 400
+            return jsonify({'status' : 'Missing form-data in request'}), 400
         else:
             data = request.form.to_dict()
             return accountmanagement.reg_account(data, role)
@@ -96,6 +96,30 @@ def getWasteImage(id):
 def getStatus():
     if request.method == "GET":
         return wastemanagement.getRequestCategory()
+    
+# TRANSACTION MANAGEMENT
+@app.route('/transactionmanagement/get/<string:id>', methods=['GET'])
+@jwt_required()
+def getBalance(id):
+    if request.method == "GET":
+        return transactionmanagement.getBalance(id)
+
+@app.route('/transactionmanagement/balance/add', methods=['POST'])
+@jwt_required()
+def addBalance():
+    if request.method == "POST":
+        if 'multipart/form-data' not in request.content_type:
+            return jsonify({'status': 'Missing form-data in request' }), 400
+        else:
+            data = request.form.to_dict()
+            return transactionmanagement.addBalance(data)
+    
+@app.route("/request-management/get-list/<string:id>", methods=['GET'])
+@jwt_required()
+def getListReq(id):
+    if request.method == "GET":
+        return requestmanagement.getUserRequest(id)
+
     
 if __name__ == '__main__':
     app.run(debug=True)

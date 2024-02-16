@@ -12,7 +12,7 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import  create_refresh_token, create_access_token, decode_token, JWTManager, jwt_required
+from flask_jwt_extended import  create_refresh_token, create_access_token, decode_token, JWTManager, jwt_required, get_jwt_identity
 from pymysql import *
 
 # FUNCTION IMPORT

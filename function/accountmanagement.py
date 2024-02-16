@@ -82,3 +82,18 @@ def reg_account(data, role):
 
     except Exception as e:
         return jsonify({"Error: " : str(e)}), 400
+    
+
+def current_user(id):
+    try:
+        conn = open_connection()
+        with conn.cursor() as cursor:
+            UUID_UA = id
+            cursor.execute("SELECT * FROM User_Data WHERE UUID_UA = %s", (UUID_UA,))
+            result = cursor.fetchone()
+
+            if result:
+                return jsonify(result), 200
+            
+    except Exception as e:
+        return jsonify({"Error :" : str(e)})

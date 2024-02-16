@@ -11,6 +11,20 @@ CORS(app)
 app.config['JWT_SECRET_KEY'] = 'maribersihkanindonesia'
 jwt = JWTManager(app)
 
+@app.route('/current_user', methods=['GET'])
+@jwt_required()
+def current_user():
+    current_user = get_jwt_identity()
+    return accountmanagement.current_user(current_user)
+
+@app.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    current_user = get_jwt_identity()
+    new_access_token = create_access_token(identity=current_user)
+    return jsonify(access_token=new_access_token), 200
+
+
 # LOGIN ACCOUNT ENDPOINT
 @app.route('/account-management/auth', methods=['POST'])
 def auth():

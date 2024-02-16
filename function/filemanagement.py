@@ -5,7 +5,7 @@ def getWasteImage(id):
     try:
         conn = open_connection()
         with conn.cursor() as cursor:
-            cursor.execute("SELECT Image_WI FROM Waste_Image WHERE UUID_WI = %s", id,)
+            cursor.execute("SELECT Image_WI FROM Waste_Image WHERE UUID_PR = %s", id,)
             result = cursor.fetchone()
             if result:
                 image_blob = result['Image_WI']

@@ -134,11 +134,15 @@ def getUserRequest(id):
         conn = open_connection()
         with conn.cursor() as cursor:
             UUID_UA = id
-            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.Pickup_Date_PR, Request_Status.Status_RS FROM Pickup_Request JOIN Pickup_Addrress ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA JOIN Request_Status ON Pickup_Request.ID_RS = Request_Status.ID_RS WHERE Pickup_Request.UUID_UA = %s", (UUID_UA,))
-            result = cursor.fetchall()
-
-            if result:
-                result = list(result)
-                return jsonify(result), 200
+            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.Pickup_Date_PR, Request_Status.Status_RS FROM Pickup_Request JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA JOIN Request_Status ON Pickup_Request.ID_RS = Request_Status.ID_RS WHERE Pickup_Request.UUID_UA = %s", (UUID_UA,))
+            results = cursor.fetchall()
+            if results:
+                data = []
+                for result in results:
+                    data.append(result) 
+                return jsonify({"data": data}), 200
+            else:
+                return jsonify({"message": "Data not found!"}), 404
+    
     except Exception as e:
         return jsonify({"Error :" : str(e)}), 400

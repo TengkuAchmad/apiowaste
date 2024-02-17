@@ -18,7 +18,7 @@ def current_user():
     return accountmanagement.current_user(current_user)
 
 @app.route('/refresh', methods=['POST'])
-@jwt_required(refresh=True)
+@jwt_required(refresh=True, locations=['json'])
 def refresh():
     current_user = get_jwt_identity()
     new_access_token = create_access_token(identity=current_user)

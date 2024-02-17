@@ -134,7 +134,7 @@ def getUserRequest(id):
         conn = open_connection()
         with conn.cursor() as cursor:
             UUID_UA = id
-            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.Pickup_Date_PR, Request_Status.Status_RS FROM Pickup_Request JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA JOIN Request_Status ON Pickup_Request.ID_RS = Request_Status.ID_RS WHERE Pickup_Request.UUID_UA = %s", (UUID_UA,))
+            cursor.execute("SELECT Pickup_Request.UUID_PR, Pickup_Address.Address_PA, Pickup_Request.Pickup_Date_PR, Request_Status.Status_RS FROM Pickup_Request JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA JOIN Request_Status ON Pickup_Request.ID_RS = Request_Status.ID_RS WHERE Pickup_Request.UUID_UA = %s", (UUID_UA,))
             results = cursor.fetchall()
             if results:
                 data = []

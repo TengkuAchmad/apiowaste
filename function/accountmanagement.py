@@ -93,7 +93,7 @@ def current_user(id):
             result = cursor.fetchone()
 
             if result:
-                return jsonify(result), 200
+                return jsonify(result), 200 
             
     except Exception as e:
         return jsonify({"Error :" : str(e)})

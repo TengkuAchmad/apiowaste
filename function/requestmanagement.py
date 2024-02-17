@@ -142,7 +142,7 @@ def getUserRequest(id):
                     data.append(result) 
                 return jsonify({"data": data}), 200
             else:
-                return jsonify({"message": "Data not found!"}), 200
+                return jsonify({}), 200
     
     except Exception as e:
         return jsonify({"Error :" : str(e)}), 400

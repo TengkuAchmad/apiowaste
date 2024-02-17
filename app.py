@@ -65,12 +65,12 @@ def createrequest():
             data = request.json
             return requestmanagement.setRequest(data)
 
-@app.route('/request-management/get/<string:role>', methods=['GET'])
+@app.route('/request-management/get/<string:role>/<string:param>', methods=['GET'])
 @jwt_required(locations=['json'])
-def getrequest(role):
+def getrequest(role, param):
     if request.method == "GET":
         if role == "driver":
-            return requestmanagement.getListRequest()
+            return requestmanagement.getListRequest(param)
 
 @app.route('/request-management/get/detail/<string:id>', methods=['GET'])
 @jwt_required(locations=['json'])

@@ -1,11 +1,11 @@
 # UTILITY IMPORT
 from utility.utils import *
 
-def getListRequest():
+def getListRequest(param):
     try:
         conn = open_connection()
         with conn.cursor() as cursor:
-            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.UUID_PR, Pickup_Request.Pickup_Date_PR, User_Data.Name_UD FROM Pickup_Request INNER JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA INNER JOIN User_Account ON Pickup_Address.UUID_UA = User_Account.UUID_UA INNER JOIN User_Data ON User_Account.UUID_UA = User_Data.UUID_UA WHERE Pickup_Request.ID_RS = 2 ORDER BY Pickup_Request.Pickup_Date_PR DESC")
+            cursor.execute("SELECT Pickup_Address.Address_PA, Pickup_Request.UUID_PR, Pickup_Request.Pickup_Date_PR, User_Data.Name_UD FROM Pickup_Request INNER JOIN Pickup_Address ON Pickup_Request.UUID_PA = Pickup_Address.UUID_PA INNER JOIN User_Account ON Pickup_Address.UUID_UA = User_Account.UUID_UA INNER JOIN User_Data ON User_Account.UUID_UA = User_Data.UUID_UA WHERE Pickup_Request.ID_RS = 2 ORDER BY Pickup_Request.Pickup_Date_PR %s", (param,))
             result = cursor.fetchall()
             result = list(result)
             return jsonify(result), 200

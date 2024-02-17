@@ -41,6 +41,9 @@ def getBalance(id):
 
             if result:
                 return jsonify({"data" : result}), 200
+            else:
+                return jsonify({"data": "Data not found!"}), 404
+            
     except Exception as e:
         return jsonify({"Error :", str(e)}), 400
     

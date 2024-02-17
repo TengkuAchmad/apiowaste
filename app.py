@@ -29,40 +29,40 @@ def refresh():
 @app.route('/account-management/auth', methods=['POST'])
 def auth():
     if request.method == "POST":
-        if 'multipart/form-data' not in request.content_type:
-            return jsonify({'status':'Missing form-data in request'}), 400
+        if request.headers.get('Content-Type') != 'application/json':
+             return jsonify({'status':'Missing JSON in request'}), 400
         else:
-            data = request.form.to_dict()
+            data = request.json
             return accountmanagement.auth_account(data)
 
 # REGISTER ACCOUNT ENDPOINT
 @app.route('/account-management/reg/<string:role>', methods=['POST'])
 def reg(role):
     if request.method == "POST":
-        if 'multipart/form-data' not in request.content_type:
-            return jsonify({'status' : 'Missing form-data in request'}), 400
+        if request.headers.get('Content-Type') != 'application/json':
+             return jsonify({'status':'Missing JSON in request'}), 400
         else:
-            data = request.form.to_dict()
+            data = request.json
             return accountmanagement.reg_account(data, role)
 
 # FORGOT PASSWORD ENDPOINT
 @app.route('/password-management/update', methods=['POST'])
 def updatepass():
     if request.method == "POST":
-        if 'multipart/form-data' not in request.content_type:
-            return jsonify({'status' : 'Missing form-data in request'}), 400
+        if request.headers.get('Content-Type') != 'application/json':
+             return jsonify({'status':'Missing JSON in request'}), 400
         else:
-            data = request.form.to_dict()
+            data = request.json
             return passwordmanagement.update_pass(data) # BUILDING (NOT TO USE)
 
 @app.route('/request-management/create', methods=['POST'])
 @jwt_required(locations=['json'])
 def createrequest():
     if request.method == "POST":
-        if 'multipart/form-data' not in request.content_type:
-            return jsonify({'status': 'Missing form-data in request' }), 400
+        if request.headers.get('Content-Type') != 'application/json':
+            return jsonify({'status':'Missing JSON in request'}), 400
         else:
-            data = request.form.to_dict()
+            data = request.json
             return requestmanagement.setRequest(data)
 
 @app.route('/request-management/get/<string:role>', methods=['GET'])
@@ -121,10 +121,10 @@ def getBalance(id):
 @jwt_required(locations=['json'])
 def addBalance():
     if request.method == "POST":
-        if 'multipart/form-data' not in request.content_type:
-            return jsonify({'status': 'Missing form-data in request' }), 400
+        if request.headers.get('Content-Type') != 'application/json':
+            return jsonify({'status':'Missing JSON in request'}), 400
         else:
-            data = request.form.to_dict()
+            data = request.json
             return transactionmanagement.addBalance(data)
     
 @app.route("/request-management/get-list/<string:id>", methods=['GET'])

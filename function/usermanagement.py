@@ -81,3 +81,5 @@ def delete_user(id):
             
     except Exception as e:
         return jsonify({"Error :" : str(e)})
+
+    

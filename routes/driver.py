@@ -11,7 +11,6 @@ def getUser():
         return drivermanagement.driver_list()
     
 @driver_blueprint.route('/driver-management/update', methods=['POST'])
-@jwt_required()
 def editUser():
     if request.method == "POST":
         if 'multipart/form-data' not in request.content_type:
@@ -21,13 +20,20 @@ def editUser():
             return drivermanagement.driver_edit(data)
 
 @driver_blueprint.route('/driver-management/get/detail/<string:id>', methods=['GET'])
-@jwt_required()
 def getUserDetail(id):
     if request.method == "GET":
         return drivermanagement.driver_details(id)
 
 @driver_blueprint.route('/driver-management/delete/<string:id>', methods=['POST'])
-@jwt_required()
 def deleteUser(id):
     if request.method == "POST":
         return drivermanagement.delete_driver(id)
+
+@driver_blueprint.route('/driver-management/create', methods=['POST'])
+def setDriver():
+    if request.method == "POST":
+        if 'multipart/form-data' not in request.content_type:
+            return jsonify({'status': 'Missing form-data in request' }), 400
+        else:
+            data = request.form.to_dict()
+            return accountmanagement.reg_account(data, role="driver")

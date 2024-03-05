@@ -28,3 +28,12 @@ def getUserDetail(id):
 def deleteUser(id):
     if request.method == "POST":
         return usermanagement.delete_user(id)
+
+@user_blueprint.route('/user-management/create', methods=['POST'])
+def setUser():
+    if request.method == "POST":
+        if 'multipart/form-data' not in request.content_type:
+            return jsonify({'status': 'Missing form-data in request' }), 400
+        else:
+            data = request.form.to_dict()
+            return accountmanagement.reg_account(data, role="user")

@@ -5,7 +5,6 @@ from utility.utils import *
 driver_blueprint = Blueprint('driver_blueprint', __name__)
 
 @driver_blueprint.route('/driver-management/get', methods=['GET'])
-@jwt_required()
 def getUser():
     if request.method == "GET":
         return drivermanagement.driver_list()

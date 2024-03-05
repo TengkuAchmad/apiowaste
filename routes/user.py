@@ -5,7 +5,6 @@ from utility.utils import *
 user_blueprint = Blueprint('user_blueprint', __name__)
 
 @user_blueprint.route('/user-management/get', methods=['GET'])
-@jwt_required()
 def getUser():
     if request.method == "GET":
         return usermanagement.user_list()

@@ -11,7 +11,6 @@ def getUser():
         return usermanagement.user_list()
     
 @user_blueprint.route('/user-management/update', methods=['POST'])
-@jwt_required()
 def editUser():
     if request.method == "POST":
         if 'multipart/form-data' not in request.content_type:
@@ -21,13 +20,11 @@ def editUser():
             return usermanagement.user_edit(data)
 
 @user_blueprint.route('/user-management/get/detail/<string:id>', methods=['GET'])
-@jwt_required()
 def getUserDetail(id):
     if request.method == "GET":
         return usermanagement.user_details(id)
 
 @user_blueprint.route('/user-management/delete/<string:id>', methods=['POST'])
-@jwt_required()
 def deleteUser(id):
     if request.method == "POST":
         return usermanagement.delete_user(id)

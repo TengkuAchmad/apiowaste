@@ -25,6 +25,10 @@ app.register_blueprint(request_blueprint)
 app.register_blueprint(files_blueprint)
 app.register_blueprint(transaction_blueprint)
 app.register_blueprint(user_blueprint)
-    
+app.register_blueprint(voucher_blueprint)
+app.register_blueprint(iplpal_blueprint)
+app.register_blueprint(sedekah_blueprint)
+app.register_blueprint(driver_blueprint)
+
 if __name__ == '__main__':
     app.run(debug=True)

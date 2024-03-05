@@ -12,7 +12,7 @@ sys.dont_write_bytecode = True
 app = Flask(__name__)
 
 # CORS DECLARATOR
-CORS(app)
+CORS(app, origins="*")
 
 # JWT MANAGER
 app.config['JWT_SECRET_KEY'] = 'maribersihkanindonesia'

@@ -89,7 +89,7 @@ def current_user(id):
         conn = open_connection()
         with conn.cursor() as cursor:
             UUID_UA = id
-            cursor.execute("SELECT * FROM User_Data JOIN User_Account ON User_Data.UUID_UA = User_Account.UUID_UA WHERE User_Data.UUID_UA = %s", (UUID_UA,))
+            cursor.execute("SELECT User_Data.UUID_UD, User_Data.UUID_UA, User_Data.Name_UD, User_Data.Birthplace_UD, User_Data.Birthdate_UD, User_Data.Address_UD, User_Data.Balance_UD, User_Account.Email_UA, User_Account.RoleAccess_UA FROM User_Data JOIN User_Account ON User_Data.UUID_UA = User_Account.UUID_UA WHERE User_Data.UUID_UA = %s", (UUID_UA,))
             result = cursor.fetchone()
 
             if result:

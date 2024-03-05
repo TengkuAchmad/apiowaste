@@ -13,6 +13,7 @@ app = Flask(__name__)
 
 # CORS DECLARATOR
 CORS(app, origins="*")
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # JWT MANAGER
 app.config['JWT_SECRET_KEY'] = 'maribersihkanindonesia'

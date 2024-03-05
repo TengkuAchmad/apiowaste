@@ -5,11 +5,13 @@ from utility.utils import *
 driver_blueprint = Blueprint('driver_blueprint', __name__)
 
 @driver_blueprint.route('/driver-management/get', methods=['GET'])
+@cross_origin()
 def getUser():
     if request.method == "GET":
         return drivermanagement.driver_list()
     
 @driver_blueprint.route('/driver-management/update', methods=['POST'])
+@cross_origin()
 def editUser():
     if request.method == "POST":
         if 'multipart/form-data' not in request.content_type:
@@ -19,16 +21,19 @@ def editUser():
             return drivermanagement.driver_edit(data)
 
 @driver_blueprint.route('/driver-management/get/detail/<string:id>', methods=['GET'])
+@cross_origin()
 def getUserDetail(id):
     if request.method == "GET":
         return drivermanagement.driver_details(id)
 
 @driver_blueprint.route('/driver-management/delete/<string:id>', methods=['POST'])
+@cross_origin()
 def deleteUser(id):
     if request.method == "POST":
         return drivermanagement.delete_driver(id)
 
 @driver_blueprint.route('/driver-management/create', methods=['POST'])
+@cross_origin()
 def setDriver():
     if request.method == "POST":
         if 'multipart/form-data' not in request.content_type:

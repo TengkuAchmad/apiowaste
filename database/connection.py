@@ -2,18 +2,18 @@
 from utility.utils import *
 
 # CONNECTION CONFIGURATION
-DB_USERNAME_CONFIG          = "technoelectrainc"
-DB_PASSWORD_CONFIG          = "owastebandung"
-DB_DATABASE_NAME_CONFIG     = "technoelectrainc$db_owaste"
-DB_CONNECTION_NAME_CONFIG   = "technoelectrainc.mysql.pythonanywhere-services.com"
-JWT_SECRET_KEY_CONFIG       = "menujuindonesiabersih"
+# DB_USERNAME_CONFIG          = "technoelectrainc"
+# DB_PASSWORD_CONFIG          = "owastebandung"
+# DB_DATABASE_NAME_CONFIG     = "technoelectrainc$db_owaste"
+# DB_CONNECTION_NAME_CONFIG   = "technoelectrainc.mysql.pythonanywhere-services.com"
+# JWT_SECRET_KEY_CONFIG       = "menujuindonesiabersih"
 
 # # CONNECTION CONFIGURATION
-# DB_USERNAME_CONFIG          = "root"
-# DB_PASSWORD_CONFIG          = ""
-# DB_DATABASE_NAME_CONFIG     = "db_owaste"
-# DB_CONNECTION_NAME_CONFIG   = "localhost"
-# JWT_SECRET_KEY_CONFIG       = "menujuindonesiabersih"
+DB_USERNAME_CONFIG          = "root"
+DB_PASSWORD_CONFIG          = ""
+DB_DATABASE_NAME_CONFIG     = "db_owaste"
+DB_CONNECTION_NAME_CONFIG   = "localhost"
+JWT_SECRET_KEY_CONFIG       = "menujuindonesiabersih"
 
 def open_connection():
     try:

@@ -14,7 +14,7 @@ def user_list():
                 return jsonify({"status" : "Data not found!"}), 200
         
     except Exception as e:
-        return jsonify({"Error :" : str(e)})
+        return jsonify({"Error" : str(e)}), 400
 
 def user_edit(data):
     try:
@@ -45,7 +45,7 @@ def user_edit(data):
             else:
                 return jsonify({"status" : "Update user failed, user not found"}), 400
     except Exception as e:
-        return jsonify({"Error :" : str(e)})
+        return jsonify({"Error" : str(e)}), 400
 
 def user_details(id):
     try:
@@ -60,7 +60,7 @@ def user_details(id):
                 return jsonify({"status" : "Data not found!"}), 200
             
     except Exception as e:
-        return jsonify({"Error :" : str(e)})
+        return jsonify({"Error" : str(e)}), 400
 
 def delete_user(id):
     try:
@@ -80,6 +80,6 @@ def delete_user(id):
                 return jsonify({"status" : "Data not found!"}), 200
             
     except Exception as e:
-        return jsonify({"Error :" : str(e)})
+        return jsonify({"Error" : str(e)}), 400
 
     

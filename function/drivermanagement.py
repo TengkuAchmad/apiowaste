@@ -14,7 +14,7 @@ def driver_list():
                 return jsonify({"status" : "Data not found!"}), 200
         
     except Exception as e:
-        return jsonify({"Error :" : str(e)})
+        return jsonify({"Error" : str(e)}), 400
 
 def driver_edit(data):
     try:
@@ -45,7 +45,7 @@ def driver_edit(data):
             else:
                 return jsonify({"status" : "Update driver failed, driver not found"}), 400
     except Exception as e:
-        return jsonify({"Error :" : str(e)})
+        return jsonify({"Error" : str(e)}), 400
 
 def driver_details(id):
     try:
@@ -60,7 +60,7 @@ def driver_details(id):
                 return jsonify({"status" : "Data not found!"}), 200
             
     except Exception as e:
-        return jsonify({"Error :" : str(e)})
+        return jsonify({"Error" : str(e)}), 400
 
 def delete_driver(id):
     try:
@@ -80,4 +80,4 @@ def delete_driver(id):
                 return jsonify({"status" : "Data not found!"}), 200
             
     except Exception as e:
-        return jsonify({"Error :" : str(e)})
+        return jsonify({"Error" : str(e)}, 400)

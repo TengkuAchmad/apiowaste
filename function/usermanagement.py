@@ -52,7 +52,7 @@ def user_details(id):
         conn = open_connection()
         with conn.cursor() as cursor:
             cursor.execute("SELECT * FROM User_Data JOIN User_Account ON User_Data.UUID_UA = User_Account.UUID_UA WHERE User_Account.RoleAccess_UA = %s AND User_Account.UUID_UA = %s", ("User", id,))
-            result = cursor.fetchall()
+            result = cursor.fetchone()
 
             if result:
                 return jsonify(result), 200
